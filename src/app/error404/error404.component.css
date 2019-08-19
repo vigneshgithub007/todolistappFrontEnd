@@ -1,0 +1,7 @@
+.background-404{
+    background-image: url("./../../assets/404.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    height: -webkit-fill-available;
+}

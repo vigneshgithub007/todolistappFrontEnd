@@ -1,0 +1,26 @@
+.profile-pic{
+    margin: 5%;
+    font-size: 15em;
+}
+.profile-pic2{
+    font-size: 4em;
+}
+.marginTop{
+    margin-top: 2%; 
+    background-color: #ffffff61;
+    color: rgba(0,0,0,.54);
+}
+
+.people-search{
+    width: 100%;
+}
+.people-ul{
+    display: flex;
+    list-style: none;
+    overflow-x: auto;
+}
+.mat-card-green-people {
+    margin: 5%;
+    -webkit-box-shadow: 3px 3px 6px 1px rgba(0,0,0,0.2) ;
+box-shadow: 3px 3px 6px 1px rgba(0,0,0,0.2) ;
+}

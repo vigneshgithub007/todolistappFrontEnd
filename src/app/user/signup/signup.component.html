@@ -1,0 +1,58 @@
+<div class="background">
+
+  <div class="container">
+    <div class="row">
+
+      <div class="col align-self-center">
+        <div class="container">
+
+          <h1 class="text-center" style="margin-top:4%"> SignUp</h1>
+          <br>
+
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="First name" type="text" [(ngModel)]="firstName" autofocus>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Last name" type="text" [(ngModel)]="lastName" autofocus>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-select [(value)]="selected">
+              <mat-option>None</mat-option>
+              <mat-option *ngFor="let country of countryCode" [value]="country.code">{{ country.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          &nbsp;&nbsp;&nbsp;
+          <mat-form-field>
+            <input matInput placeholder="Mobile number" type="number" [(ngModel)]="mobileNumber" autofocus>
+          </mat-form-field>
+
+
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Email" [formControl]="emailFormControl" [errorStateMatcher]="matcher" [(ngModel)]="email" autofocus>
+            
+            <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+              Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="emailFormControl.hasError('required')">
+              Email is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Password" type="password" [(ngModel)]="password" autofocus>
+          </mat-form-field>
+
+          <br>
+
+          <h6>Already have account? <a [routerLink]="['/sign-in']">SignIn</a> </h6>
+          
+          <button mat-raised-button class="singinbtn mat-elevation-z8" color='primary' (click)="submit()"><i class="material-icons">navigate_next</i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

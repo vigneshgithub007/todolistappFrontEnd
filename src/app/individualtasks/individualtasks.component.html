@@ -1,0 +1,288 @@
+<div class="container">
+
+  <!-- The Modal  For Creating task-->
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" style="background: #acd8c9d6">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Create task</h4>
+          <mat-slide-toggle color="primary" checked="checked" [(ngModel)]="private" *ngIf='!editMode'>
+            Private
+          </mat-slide-toggle>
+          <button mat-icon-button *ngIf='editMode' matTooltip='Delete Task?' color='primary' data-toggle="collapse"
+            data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i
+              class="material-icons">delete_outline</i></button>
+
+        </div>
+        <div class="collapse" id="collapseExample">
+          <div class="card-body">
+            Do you want to delete this tasklist? <button mat-raised-button class="mat-elevation-z8 add-btn float-right"
+              color='primary' (click)="deleteTask()" data-dismiss="modal">Yes!</button>
+          </div>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+
+          <mat-form-field>
+            <input matInput placeholder="Title" type="text" [(ngModel)]="title">
+          </mat-form-field>
+          <button mat-raised-button class="mat-elevation-z8 add-btn float-right" color='primary' (click)='addTask()'
+            data-dismiss="modal"><i class="material-icons">
+              done_outline
+            </i></button>
+          <hr>
+          <div *ngFor='let x of taskNumberIds; let i = index'>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Task{{i+1}}" type="text" [(ngModel)]="this['subtask' + x]">
+            </mat-form-field>
+
+
+            <div *ngIf="this['subtask' + x]">
+              <div *ngFor="let detail of [1, 2, 3, 4, 5]; let j = index; let first = first; let last = last">
+                <mat-expansion-panel [expanded]="step === detail" (opened)="setStep(detail)" hideToggle>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      SubTask:{{detail}}
+                    </mat-panel-title>
+                    <mat-panel-description>
+                      {{ this['detail' + i + detail ] }}
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+
+                  <mat-form-field class="example-full-width1">
+                    <input matInput placeholder="Detail {{detail}}" type="text"
+                      [(ngModel)]="this['detail' + i + detail ]">
+                  </mat-form-field>
+
+                  <button *ngIf="!last" mat-icon-button color="primary" class="float-right " (click)="nextStep()"> <i
+                      class="material-icons">
+                      add
+                    </i></button>
+                  <mat-action-row *ngIf="last">
+                    <button mat-button color="warn" (click)="prevStep()"> <i class="material-icons">
+                        keyboard_arrow_up
+                      </i></button>
+                  </mat-action-row>
+                </mat-expansion-panel>
+              </div>
+              <!-- Epansion panel for adding details endds here -->
+            </div>
+            <hr>
+            <br>
+
+          </div>
+          <div class='float-right'>
+
+            <button *ngIf='count != 10' mat-mini-fab class="mat-elevation-z8 add-btn" color='primary' (click)='add()'>
+              <i class="material-icons">
+                add
+              </i></button>
+
+          </div>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button mat-raised-button class="mat-elevation-z8" color='primary' data-dismiss="modal">
+            <i class="material-icons">
+              close
+            </i></button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- end of modal -->
+
+
+
+  <!-- Modal  for notification-->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Notification</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <mat-progress-bar mode="indeterminate" *ngIf="!notifications"></mat-progress-bar>
+
+          <div *ngIf="notifications" class="container">
+            <div class="row" *ngFor="let notify of notifications.slice().reverse()">
+
+              <h6 class="lift-up">
+                <i class="material-icons">list_alt</i>
+
+                {{ notify }}</h6>
+              <hr>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button mat-raised-button color="primary" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <mat-progress-bar mode="indeterminate" value="40" *ngIf="!users && !userInfo"></mat-progress-bar>
+
+
+
+  <!-- Heading  -->
+  <h2 class="text-center head-up">My Tasks</h2>
+ 
+
+  <br>
+
+
+  <!-- Tasks -->
+
+  <mat-spinner *ngIf='!tasks && !empty' [diameter]="100" class="mx-auto"></mat-spinner>
+
+  <!-- card in case of no tasks -->
+  <mat-card class="text-center" *ngIf='empty && !tasks'>
+    <h4>{{empty}}</h4>
+    <button mat-icon-button (click)="ngOnInit()"> <i class="material-icons">refresh </i></button>
+  </mat-card>
+
+  <div *ngIf='tasks' class="row">
+
+    <div class='col-md-12'>
+
+
+
+      <div class="text-center">
+        <!-- pgination 
+                <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+        <mat-form-field>
+          <input matInput placeholder="Search for Tasks" type="text" [(ngModel)]="filter">
+        </mat-form-field>
+      </div>
+
+
+    </div>
+
+
+
+  </div>
+
+  <hr>
+
+  <button mat-raised-button class="mat-elevation-z8 float-right" color='primary' matTooltip="Ctrl + Z"
+    (click)='undo()'><i class="material-icons">undo</i></button>
+
+  <!-- for loop starts here -->
+  <div class="row"
+    *ngFor='let task of tasks  | orderBy: key : reverse | filter:filter  | paginate: { itemsPerPage: 12, currentPage: p }'
+    style="margin-top:60px">
+
+
+    <!-- card for pusblic tasks -->
+    <!--|| userInfo.friends.includes(task.createdByUserId)"-->
+    
+    <div *ngIf="task.type === 'public' && id === task.createdByUserId" class="mx-auto div-width">
+
+      <mat-card class="card mat-card-primary task-card mat-elevation-z8">
+        <h4 class="task-head">{{ task.title }}</h4>
+        <button mat-icon-button matTooltip="Edit" color="primary"
+          *ngIf="id === task.createdByUserId || userInfo.friends.includes(task.createdByUserId)" class="float-right"
+          data-toggle="modal" data-target="#myModal" (click)="editValue(task)">
+          <i class="material-icons">
+            edit
+          </i>
+        </button>
+        <br>
+        <br>
+        <div class="row">
+          <span style="margin-left: 16px">Created By:</span>
+          <span class="mx-auto"><b>{{ task.createdBy }}</b></span>
+          <span class="ml-auto"><b>{{ task.createdOn | date:'medium' }}</b></span>
+        </div>
+        <div class="row">
+          <span style="margin-left: 16px">Modified By:</span>
+          <span class="mx-auto"><b>{{ task.modifiedBy }}</b></span>
+          <span class="ml-auto"><b>{{ task.modifiedOn | date:'medium'}}</b></span>
+        </div>
+        <hr>
+        <ul class="task-ul">
+          <li *ngFor='let subtask of task.tasks; let i = index'>
+            <mat-checkbox matTooltip="Mark Complete" class="example-margin" color="primary"
+              (change)="taskChecked(task,i)"
+              [disabled]="userId !== task.createdByUserId && !userInfo.friends.includes(task.createdByUserId)">
+              {{ subtask.task }}
+            </mat-checkbox>
+
+            <ul>
+              <li class="subtask-ul" *ngFor='let x of subtask.subtask; let j = index'>
+                <button class="costum-checkBox" matTooltip="Mark Complete" (click)="subtaskChecked(task, i, j)"
+                  [disabled]="userId !== task.createdByUserId && !userInfo.friends.includes(task.createdByUserId)">
+                  {{x}}
+                </button>
+
+              </li>
+            </ul>
+            <hr>
+          </li>
+        </ul>
+      </mat-card>
+    </div>
+
+    <!-- Card for private tasks of user 
+    <div *ngIf="task.type === 'private' && userId === task.createdByUserId" class="mx-auto div-width">
+
+      <mat-card class="card mat-card-green mat-elevation-z8">
+        <h4 class="task-head">{{ task.title }}</h4>
+        <button mat-icon-button color="link" (click)="editValue(task)" data-toggle="modal" data-target="#myModal"
+          class="float-right" matTooltip="Edit">
+          <i class="material-icons">
+            edit
+          </i>
+        </button>
+        <br>
+        <br>
+        <div class="row">
+          <span style="margin-left: 16px">Created By:</span>
+          <span class="ml-auto"><b>{{ task.createdBy }}</b></span>
+          <span class="ml-auto"><b>{{ task.createdOn | date:'medium' }}</b></span>
+        </div>
+
+        <hr>
+        <ul class="task-ul">
+          <li *ngFor='let subtask of task.tasks; let i = index'>
+            <mat-checkbox class="example-margin" color="basic" (click)="taskChecked(task,i)" matTooltip="Mark Complete">
+              {{ subtask.task }}
+            </mat-checkbox>
+
+            <ul>
+
+              <li class="subtask-ul" *ngFor='let x of subtask.subtask; let j = index'>
+                <button class="costum-checkBox" matTooltip="Mark Complete" (click)="subtaskChecked(task, i, j)">
+                  {{x}}
+                </button>
+
+              </li>
+            </ul>
+            <hr>
+          </li>
+        </ul>
+      </mat-card>
+    </div>
+  </div> -->
+  <!-- end of task row --> 
+
+</div>
+
+
+
+<div class="col-md-12 text-center">
+  <!-- pagination -->
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>

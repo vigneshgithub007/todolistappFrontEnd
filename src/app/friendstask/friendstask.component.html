@@ -1,0 +1,138 @@
+<mat-progress-bar mode="indeterminate" *ngIf="!userInfo"></mat-progress-bar>
+
+
+
+
+<div class="container">
+
+  <button mat-icon-button color="primary" matTooltip="Back" (click)="goBack()">
+    <i class="material-icons"> arrow_back </i>
+  </button>
+
+  <h1 class='text-center'>My Friends Tasks</h1>
+
+  <div class="row">
+
+
+
+  </div>
+
+</div>
+
+<!-- Main card -->
+
+<!--
+        <mat-card class="mx-auto marginTop" *ngIf="userInfo">
+            <div class="container">
+                <div class="row">
+                    <button mat-raised-button matTooltip="Unfriend" (click)="unFriend()" class="ml-auto"> Unfriend</button>
+                    <div class="col-md-12">
+                        <div class="text-center">
+
+                            <i class="material-icons profile-pic"> account_circle</i>
+                            <h2 style="text-transform:capitalize">{{userInfo.firstName}} {{userInfo.lastName}}</h2>
+                            <hr>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <p>Email :</p>
+                        <p><b>{{userInfo.email}}</b></p>
+                        <br>
+
+                        <p>Phone no.</p>
+                        <p *ngIf="userInfo.mobileNumber"> <b>{{userInfo.mobileNumber}}</b> </p>
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <p>Join On :</p>
+                        <p> <b>{{userInfo.createdOn | date: "medium"}}</b> </p>
+
+                        <br>
+
+                        <p>Country :</p>
+                        <p *ngIf="country"> <b>{{country}}</b> </p>
+                    </div>
+
+                </div>
+
+              -->
+
+<!-- Friend's friend list 
+
+                <mat-expansion-panel class="mat-elevation-z8">
+
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <i class="material-icons"> person_pin </i>
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            {{userInfo.firstName}}'s friends.
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+
+                    <mat-form-field class="text-center people-search">
+                        <input matInput placeholder="Search Peoples" type="text" [(ngModel)]="peopleSearch">
+                    </mat-form-field>
+
+                    <mat-spinner *ngIf='!friends' [diameter]="100" class="mx-auto"></mat-spinner>
+
+                    <div *ngIf="friends" class="row">
+
+                        <ul class="people-ul">
+                            <li *ngFor="let user of friends | filter: peopleSearch">
+
+                                <mat-card class=" mat-card-green-people " *ngIf='user.userId !== id'>
+                                    <p> <i class="material-icons profile-pic2"> account_circle</i></p>
+                                    <p>{{user.firstName}}</p>
+                                </mat-card>
+
+                            </li>
+                        </ul>
+
+                    </div>
+
+                </mat-expansion-panel>
+
+              -->
+
+<!--
+<div class='container'>
+
+  <div *ngIf="friends" class="row">
+
+
+    <div class="people-ul">
+      <div *ngFor="let user of friends | filter: peopleSearch" class='col-md-4'>
+
+      -->
+<br>
+<div class='container'>
+  <!--<div class='row ' style="text-align:center" *ngIf='users.length>0'>-->
+  <div  class="row">
+    <div *ngFor="let user of friends" class='col-md-4'>
+      <div *ngIf="user.userId !== id">
+
+        <mat-card class=" mat-card-green-people" >
+          <p class="strong">{{user.firstName}}</p>
+          <button [routerLink]="['/individualtasks',user.userId]" *ngIf="userInfo.friends.includes(user.userId)"
+            mat-raised-button class="mat-elevation-z8" color='primary'>See the Tasks
+          </button>
+        </mat-card>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+<!--        
+
+            </div>
+        </mat-card> -->

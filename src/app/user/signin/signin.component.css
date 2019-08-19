@@ -1,0 +1,160 @@
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+
+  .background{
+  background-color: #29b6f6
+  }
+
+  .singinbtn{
+    width: 100%;
+    margin: 0px !important;
+  }
+
+  .toggle-margin{
+    margin: 15px !important;
+  }
+
+  .head-up{
+    margin-top: 6% !important;
+  }
+
+  .head-down{
+    margin-bottom: 6% !important;
+  }
+
+/* Animations */
+
+  .anime{
+    animation: Animation 4s forwards 0s ease;
+
+  }
+
+  @keyframes Animation{
+    0%{
+        transform: translateY(-100%);
+        opacity: 0;
+        }
+    83%{
+        transform: translateY(0%);
+        opacity: 0.5;
+        }
+    100%{
+        transform: translateY(0%);
+        opacity: 1;
+        }
+}
+
+.anime1{
+  animation: Animation1 4s forwards 0s ease;
+
+}
+@keyframes Animation1{
+  0%{
+    transform: rotate(0) scale(0.5) skewY(-25deg);
+    opacity: 0.5;
+    }
+100%{
+    transform: rotate(0) scale(1) skewY(0deg);
+    opacity: 1;
+    }
+}
+
+
+  .mat-card-primary{
+    background-color: white;
+  }
+
+  .task-card{
+      width: 100%;
+  }
+
+  .task-head{
+    display: inline-block;
+    margin: 0px;
+    width: 86%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+  }
+
+  .costum-checkBox{
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-transform: capitalize;
+  }
+  
+  .costum-checkBox:hover{
+    text-decoration: line-through;
+  }
+
+  .task-ul{
+      height: 150px;
+      font-size: smaller;
+      list-style: none;
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      overflow-y: scroll;
+      text-overflow: ellipsis;
+      padding: 0px;
+  }
+
+  .task-ul::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
+}
+
+.subtask-ul{
+    list-style: none;
+    padding-left: 50px;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 0.85em;
+    background-image: url('./../../../assets/checkbox.png');
+    background-repeat: no-repeat;
+    background-size: 18px;
+    cursor: default !important;
+}
+.subtask-ul:hover{
+    list-style: none;
+    padding-left: 50px;
+    white-space: nowrap;
+    overflow: hidden;
+    cursor: default !important;
+    background-image: url('./../../../assets/check2.png');
+    background-repeat: no-repeat;
+    background-size: 18px;
+ }
+
+.div-width{
+    width: 75%;
+}
+
+
+
+#signup{
+  margin:50px auto;
+}
+
+
+.marginTop{
+  margin-top: 10%; 
+  margin-bottom:10%
+ /* background-color: #ffffff61;
+  color: rgba(0,0,0,.54);*/
+}
+
+.mat-card-green-people {
+  margin: 5%;
+  -webkit-box-shadow: 3px 3px 6px 1px rgba(0,0,0,0.2) ;
+box-shadow: 3px 3px 6px 1px rgba(0,0,0,0.2) ;
+}
+

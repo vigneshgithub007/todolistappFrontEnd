@@ -1,0 +1,69 @@
+<div class="container">
+
+    <button mat-icon-button color="primary" matTooltip="Back" (click)="goBack()">
+      <i class="material-icons"> arrow_back </i>
+    </button>
+
+</div>
+
+
+
+<div class='container'>
+  <br>
+  <br>
+  <h1 class='text-center'>Friends Using To DO List</h1>
+  <br>
+
+  <hr><br>
+
+</div>
+
+<div class='container'>
+  <!--<div class='row ' style="text-align:center" *ngIf='users.length>0'>-->
+  <div *ngIf="users && userInfo" class="row">
+
+    <div *ngFor="let user of users">
+
+      <div *ngIf="userId !== user.userId ">
+
+
+
+        <mat-card class="mat-card-green-people">
+
+          <div class='col-md-4'>
+
+
+
+            <p>{{user.firstName}}</p>
+            <button
+              *ngIf="!userInfo.firstName.includes('Vignesh')&&!userInfo.request.includes(user.userId) && !userInfo.friends.includes(user.userId) && !userInfo.requested.includes(user.userId)"
+              mat-raised-button class="mat-elevation-z8" color='primary' 
+              (click)="addAsFriend(user.userId, user.firstName)">
+              
+
+              Add as Friend
+
+            </button>
+
+            <button *ngIf="userInfo.requested.includes(user.userId)" mat-raised-button class="mat-elevation-z8"
+              color='disabled' disabled>Pending...</button>
+
+            <button *ngIf="userInfo.request.includes(user.userId)" mat-raised-button class="mat-elevation-z8"
+              color='primary' (click)="addToFriend(user.userId, user.firstName)">
+              
+
+                Accept Request
+              </button>
+
+            <button [routerLink]="['/profile',user.userId]" *ngIf="userInfo.friends.includes(user.userId)"
+              mat-raised-button class="mat-elevation-z8" color='primary'>
+                Show Friend Profile
+              </button>
+
+          </div>
+
+        </mat-card>
+
+      </div>
+    </div>
+  </div>
